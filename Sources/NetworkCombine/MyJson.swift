@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MyJson {
+public struct MyJson {
     
     // Print JSON Data
     static func prettyPrint(value: AnyObject) -> String {

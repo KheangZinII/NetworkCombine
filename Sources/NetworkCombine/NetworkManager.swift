@@ -458,7 +458,7 @@ public class NetworkManager: NSObject {
 //MARK: - URLSessionDelegate -
 extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
     
-    func urlSession(_ session: URLSession,
+    public func urlSession(_ session: URLSession,
                     downloadTask: URLSessionDownloadTask,
                     didWriteData bytesWritten: Int64,
                     totalBytesWritten: Int64,
@@ -469,7 +469,7 @@ extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
         subject.send(.progress(percentage: totalDownloaded * 100))
     }
     
-    func urlSession(
+    public func urlSession(
         _ session: URLSession,
         task: URLSessionTask,
         didSendBodyData bytesSent: Int64,
@@ -482,7 +482,7 @@ extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
         subject.send(.progress(percentage: totalDownloaded * 100))
     }
     
-    func urlSession(_ session: URLSession,
+    public func urlSession(_ session: URLSession,
                     downloadTask: URLSessionDownloadTask,
                     didFinishDownloadingTo location: URL) {
         
@@ -516,7 +516,7 @@ extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
         subject.send(.response(data: data))
     }
     
-    func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    public func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error {
             subject.send(completion: .failure(error))
         }

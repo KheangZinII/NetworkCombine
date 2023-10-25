@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Data {
+public extension Data {
     
     // - For Print Response Data
     var prettyPrinted: String {

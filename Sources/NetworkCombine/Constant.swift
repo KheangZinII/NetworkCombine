@@ -9,7 +9,7 @@ import Foundation
 
 typealias Completion                = ()                -> Void
 
-enum HTTPMethod : String {
+public enum HTTPMethod : String {
     case GET    = "GET"
     case POST   = "POST"
     case PUT    = "PUT"
@@ -17,22 +17,22 @@ enum HTTPMethod : String {
     case DELETE = "DELETE"
 }
 
-enum ContentType {
+public enum ContentType {
     case Json
     case FormData
 }
 
-enum UploadResponse {
+public enum UploadResponse {
     case progress(percentage: Double)
     case response(data: Data?)
 }
 
-enum XAppVersion : String {
+public enum XAppVersion : String {
    case base = "20210705"
 
 }
 
-enum NetworkError: Error {
+public enum NetworkError: Error {
     case invalidURL
     case responseError
     case decoding
@@ -41,7 +41,7 @@ enum NetworkError: Error {
 }
 
 extension NetworkError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .invalidURL:
             return NSLocalizedString("Invalid URL", comment: "Invalid URL")
@@ -57,18 +57,18 @@ extension NetworkError: LocalizedError {
     }
 }
 
-enum UserDefaultKey : String {
+public enum UserDefaultKey : String {
     case appLang            = "appLang"
 }
-enum NotifyKey : String {
+public enum NotifyKey : String {
     case reloadLocalize                     = "reloadLocalize"
     
 }
-enum APIKey: String {
+public enum APIKey: String {
     
-    static var baseURL  : String = "https://kosignstore.wecambodia.com:8080/kosignstore_v4"
+    public static var baseURL  : String = "https://kosignstore.wecambodia.com:8080/kosignstore_v4"
     
-    static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting"
+    public static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting"
     
 //  static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting/866fb6ff-877a-4cdc-bfb5-7619e194cbd4?os=iOS"
     
@@ -90,11 +90,5 @@ enum APIKey: String {
     case mg                                     =   ""
     case upload                                 =   "/upload"
     case bizplayImage                           =   "https://kosignstore.wecambodia.com/storage/image/c496271a-979c-4475-b89a-214e61d7a220.png"
-}
-
-// TZ = TimeZone
-enum TZ: String {
-    case Korea      = "Asia/Seoul"
-    case Cambodia   = "Asia/Phnom_Penh"
 }
 

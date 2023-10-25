@@ -76,7 +76,7 @@ public class Log {
     }
 }
 
-func tempLog<T>(_ object: T?, filename: String, line: Int, funcname: String, emoji: String) {
+public func tempLog<T>(_ object: T?, filename: String, line: Int, funcname: String, emoji: String) {
     #if DEBUG
     guard let object = object else {
         print("""

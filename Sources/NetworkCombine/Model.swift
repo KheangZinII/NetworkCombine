@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Upload: Codable {
+public struct Upload: Codable {
     struct Response: Decodable {
         var message: String
         var status: Bool
@@ -19,7 +19,7 @@ struct Upload: Codable {
     }
 }
 
-struct Download: Codable {
+public struct Download: Codable {
     struct Response {
         
     }
