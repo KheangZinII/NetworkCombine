@@ -121,7 +121,7 @@ public class NetworkManager: NSObject {
                         .delay(for: .seconds(self.delayRetryRequest), scheduler: DispatchQueue.main) // delay request
                         .eraseToAnyPublisher()
                 }
-                .retry(retryCountRequest) // retry request
+                .retry(self.retryCountRequest) // retry request
                 
             /// - tryMap : handle data, response and error from Upstream
                 .tryMap { (data, response) -> Data in
