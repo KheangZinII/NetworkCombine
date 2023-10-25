@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class NetworkManager: NSObject {
+public class NetworkManager: NSObject {
     
     //MARK: - properties -
     private static var sharedInstance    = NetworkManager()
