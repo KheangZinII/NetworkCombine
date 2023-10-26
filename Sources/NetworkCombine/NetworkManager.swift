@@ -22,8 +22,6 @@ public class NetworkManager: NSObject {
     private var cancellables        = Set<AnyCancellable>()
     private var retryCountRequest   = 2 // retry request count
     private var delayRetryRequest   = 3 // delay request in second
-    public var token                : String? = nil
-    public var jSessionId           : String? = nil
     
     public static var shared: NetworkManager = {
         // Timeout Configuration
@@ -174,7 +172,7 @@ public class NetworkManager: NSObject {
                         cookieProperties[.version]  = cookie.version
                         cookieProperties[.expires]  = Date().addingTimeInterval(31536000)
                         
-                        NetworkManager.shared.jSessionId     = "\(cookie.name)=\(cookie.value)"
+                        Shared.share.jSessionId     = "\(cookie.name)=\(cookie.value)"
                         
                         if let cookie = HTTPCookie(properties: cookieProperties) {
                             HTTPCookieStorage.shared.setCookie(cookie)
@@ -419,7 +417,7 @@ public class NetworkManager: NSObject {
         
         request.addValue("\(XAppVersion.base.rawValue)", forHTTPHeaderField: "X-App-Version")
         
-        if let token = NetworkManager.shared.token {
+        if let token = Shared.share.token {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
