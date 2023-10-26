@@ -74,7 +74,7 @@ public class NetworkManager: NSObject {
     
     //MARK: - request data with dataTaskPublisher -
     public func request<I: Encodable, O: Decodable>(shouldShowLoading  : Bool = true,
-                                             baseURL              : String = APIKey.baseURL,
+                                                    baseURL              : String = APIKey.baseURL.rawValue,
                                              pathVariable         : [String]? = nil,
                                              urlParam             : Dictionary<String, String>? = nil,
                                              endpoint             : APIKey,
@@ -222,7 +222,7 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - DownloadTask - using with combine and response progress real time
-    public func download<I: Encodable, O: Decodable>( baseURL: String = APIKey.baseURL,
+    public func download<I: Encodable, O: Decodable>( baseURL: String = APIKey.baseURL.rawValue,
                                                endpoint: APIKey? = nil,
                                                rawURL: String? = nil,
                                                contentType: ContentType = .FormData,
@@ -261,7 +261,7 @@ public class NetworkManager: NSObject {
         fileName: String,
         paramName: String,
         file: Data,
-        baseURL: String = APIKey.baseURL,
+        baseURL: String = APIKey.baseURL.rawValue,
         endpoint: APIKey,
         contentType: ContentType = .FormData,
         pathVariable: [String]? = nil,
