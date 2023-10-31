@@ -16,5 +16,7 @@ public struct Shared {
     
     public var jSessionId                      : String?
     public var token                           : String?
-    public var appId                           : String?
+    
+    // app id kosign store
+    public var appId                           : String = "866fb6ff-877a-4cdc-bfb5-7619e194cbd4"
 }
