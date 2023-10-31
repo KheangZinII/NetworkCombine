@@ -16,4 +16,5 @@ public struct Shared {
     
     public var jSessionId                      : String?
     public var token                           : String?
+    public var appId                           : String?
 }
