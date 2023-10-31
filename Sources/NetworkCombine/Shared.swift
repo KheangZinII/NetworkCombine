@@ -10,7 +10,7 @@ import Foundation
 public struct Shared {
     
     //MARK:- singleton
-    public static var share = Shared()
+    static var share = Shared()
     
     private init() { }
     
