@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Shared {
+public struct Shared {
     
     //MARK:- singleton
     static var share = Shared()
