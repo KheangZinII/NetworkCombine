@@ -14,6 +14,6 @@ public struct Shared {
     
     private init() { }
     
-    var jSessionId                      : String?
-    var token                           : String?
+    public var jSessionId                      : String?
+    public var token                           : String?
 }
