@@ -65,65 +65,31 @@ public enum NotifyKey : String {
     
 }
 
-//public enum APIKey: String {
-//
-//    public static var baseURL  : String = "https://kosignstore.wecambodia.com:8080/kosignstore_v4"
-//
-//    public static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting"
-//
-////  static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting/866fb6ff-877a-4cdc-bfb5-7619e194cbd4?os=iOS"
-//
-////    #if DEBUG
-////    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
-////    #else
-////    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
-////    #endif
-//
-//    case listPublicApp                          =   "/list-public-app"
-//    case listPrivateApp                         =   "/list-private-app"
-//    case listPublicAppVersion                   =   "/list-public-app-version"
-//    case listPrivateAppVersion                  =   "/list-private-app-version"
-//    case login                                  =   "/login"
-//    case sendEmail                              =   "/send-email"
-//    case forgotPassword                         =   "/forget-password"
-//    case changePassword                         =   "/change-password"
-//    case deleteAccount                          =   "/delete-user"
-//    case mg                                     =   ""
-//    case upload                                 =   "/upload"
-//    case bizplayImage                           =   "https://kosignstore.wecambodia.com/storage/image/c496271a-979c-4475-b89a-214e61d7a220.png"
-//}
+public enum APIKey: String {
 
-public struct APIKey: RawRepresentable {
-    
-    public var rawValue: String
-    
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-    
-    public static var baseURL = APIKey(rawValue: "https://kosignstore.wecambodia.com:8080/kosignstore_v4")
-    
-    public static var mgURL   = APIKey(rawValue: "https://mg.kosign.dev/api/v2/app/setting")
-    
-    //  static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting/866fb6ff-877a-4cdc-bfb5-7619e194cbd4?os=iOS"
-    
-    //    #if DEBUG
-    //    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
-    //    #else
-    //    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
-    //    #endif
-    
-    //    case listPublicApp                          =   "/list-public-app"
-    //    case listPrivateApp                         =   "/list-private-app"
-    //    case listPublicAppVersion                   =   "/list-public-app-version"
-    //    case listPrivateAppVersion                  =   "/list-private-app-version"
-    //    case login                                  =   "/login"
-    //    case sendEmail                              =   "/send-email"
-    //    case forgotPassword                         =   "/forget-password"
-    //    case changePassword                         =   "/change-password"
-    //    case deleteAccount                          =   "/delete-user"
-    //    case mg                                     =   ""
-    //    case upload                                 =   "/upload"
-    //    case bizplayImage                           =   "https://kosignstore.wecambodia.com/storage/image/c496271a-979c-4475-b89a-214e61d7a220.png"
+    public static var baseURL  : String = "https://kosignstore.wecambodia.com:8080/kosignstore_v4"
+
+    public static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting"
+
+//  static var mgURL    :  String = "https://mg.kosign.dev/api/v2/app/setting/866fb6ff-877a-4cdc-bfb5-7619e194cbd4?os=iOS"
+
+//    #if DEBUG
+//    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
+//    #else
+//    case mg                         = "/api/v2/app/setting/9178a6ee-e434-4969-afcf-f161788348c4?os="
+//    #endif
+
+    case listPublicApp                          =   "/list-public-app"
+    case listPrivateApp                         =   "/list-private-app"
+    case listPublicAppVersion                   =   "/list-public-app-version"
+    case listPrivateAppVersion                  =   "/list-private-app-version"
+    case login                                  =   "/login"
+    case sendEmail                              =   "/send-email"
+    case forgotPassword                         =   "/forget-password"
+    case changePassword                         =   "/change-password"
+    case deleteAccount                          =   "/delete-user"
+    case mg                                     =   ""
+    case upload                                 =   "/upload"
+    case bizplayImage                           =   "https://kosignstore.wecambodia.com/storage/image/c496271a-979c-4475-b89a-214e61d7a220.png"
 }
 

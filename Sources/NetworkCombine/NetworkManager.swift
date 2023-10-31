@@ -74,7 +74,7 @@ public class NetworkManager: NSObject {
     
     //MARK: - request data with dataTaskPublisher -
     public func request<I: Encodable, O: Decodable>(shouldShowLoading  : Bool = true,
-                                                    baseURL              : String = APIKey.baseURL.rawValue,
+                                             baseURL              : String = APIKey.baseURL,
                                              pathVariable         : [String]? = nil,
                                              urlParam             : Dictionary<String, String>? = nil,
                                              endpoint             : APIKey,
@@ -99,7 +99,7 @@ public class NetworkManager: NSObject {
         return Future<O, Error> { [weak self] promise in
             
             /// -  check if url is valid
-            guard let self = self, let url = URL(string: APIKey.baseURL.appending(endpoint.rawValue)) else {
+            guard let self = self, let url = URL(string: APIKey.baseURL) else {
                 return promise(.failure(NetworkError.invalidURL))
             }
             
@@ -222,7 +222,7 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - DownloadTask - using with combine and response progress real time
-    public func download<I: Encodable, O: Decodable>( baseURL: String = APIKey.baseURL.rawValue,
+    public func download<I: Encodable, O: Decodable>( baseURL: String = APIKey.baseURL,
                                                endpoint: APIKey? = nil,
                                                rawURL: String? = nil,
                                                contentType: ContentType = .FormData,
@@ -261,7 +261,7 @@ public class NetworkManager: NSObject {
         fileName: String,
         paramName: String,
         file: Data,
-        baseURL: String = APIKey.baseURL.rawValue,
+        baseURL: String = APIKey.baseURL,
         endpoint: APIKey,
         contentType: ContentType = .FormData,
         pathVariable: [String]? = nil,

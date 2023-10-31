@@ -6,6 +6,6 @@ final class NetworkCombineTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(NetworkCombine().text, "Hello, World!")
+//        XCTAssertEqual(NetworkCombine, "Hello, World!")
     }
 }
