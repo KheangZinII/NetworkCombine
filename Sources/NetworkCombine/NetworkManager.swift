@@ -1,6 +1,6 @@
 //
 //  NetworkManager.swift
-//  CombineTechTalk
+//  NetworkManager
 //
 //  Created by Bong Kokkheang on 26/7/23.
 //
