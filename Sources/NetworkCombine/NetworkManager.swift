@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  NetworkManager.swift
 //  CombineTechTalk
 //
 //  Created by Bong Kokkheang on 26/7/23.
@@ -11,7 +11,7 @@ import Combine
 public class NetworkManager: NSObject {
     
     //MARK: - properties -
-    private static var sharedInstance    = NetworkManager()
+    private static var sharedInstance   = NetworkManager()
     
     // The Network access for request, response, upload and download task
     private static var sessionConfig    : URLSessionConfiguration!
@@ -19,9 +19,9 @@ public class NetworkManager: NSObject {
     let progress                        : PassthroughSubject<(id: Int, progress: Double), Never> = .init()
     let subject                         : PassthroughSubject<UploadResponse, Error> = .init()
     
-    private var cancellables        = Set<AnyCancellable>()
-    private var retryCountRequest   = 2 // retry request count
-    private var delayRetryRequest   = 3 // delay request in second
+    private var cancellables            = Set<AnyCancellable>()
+    private var retryCountRequest       = 2 // retry request count
+    private var delayRetryRequest       = 3 // delay request in second
     
     public static var shared: NetworkManager = {
         // Timeout Configuration
@@ -73,19 +73,20 @@ public class NetworkManager: NSObject {
     private override init() {}
     
     //MARK: - request data with dataTaskPublisher -
-    public func request<I: Encodable, O: Decodable>(shouldShowLoading  : Bool = true,
-                                             baseURL              : String = APIKey.baseURL,
-                                             pathVariable         : [String]? = nil,
-                                             urlParam             : Dictionary<String, String>? = nil,
-                                             endpoint             : APIKey,
-                                             httpMethod           : HTTPMethod,
-                                             body                 : I = "",
-                                             responseType         : O.Type) -> Future<O, Error> {
+    public func request<I: Encodable, O: Decodable>(shouldShowLoading          : Bool                          = true,
+                                                    baseURL                    : String                        = APIKey.baseURL,
+                                                    pathVariable               : [String]?                     = nil,
+                                                    urlParam                   : Dictionary<String, String>?   = nil,
+                                                    endpoint                   : APIKey,
+                                                    httpMethod                 : HTTPMethod,
+                                                    body                       : I                             = "",
+                                                    responseType               : O.Type)
+    -> Future<O, Error> {
         
         
         if shouldShowLoading {
             DispatchQueue.main.async {
-//                LoadingView.show()
+                //                LoadingView.show()
             }
         }
         
@@ -106,7 +107,7 @@ public class NetworkManager: NSObject {
             /// -  combine network request with dataTaskPublisher
             NetworkManager.session.dataTaskPublisher(for: request)
             
-                /// - trycatch:  handle error and and return publisher to upStream
+            /// - trycatch:  handle error and and return publisher to upStream
                 .tryCatch { (error) -> AnyPublisher<(data: Data, response: URLResponse), URLError> in
                     print("Try to handle an error")
                     guard self.checkInternetRequest(URLError: error) else {
@@ -120,7 +121,7 @@ public class NetworkManager: NSObject {
                         .eraseToAnyPublisher()
                 }
                 .retry(self.retryCountRequest) // retry request
-                
+            
             /// - tryMap : handle data, response and error from Upstream
                 .tryMap { (data, response) -> Data in
                     
@@ -188,21 +189,21 @@ public class NetworkManager: NSObject {
                     }
                     return data
                 }
-                /// - decode data
+            /// - decode data
                 .decode(type: responseType, decoder: JSONDecoder())
             
-                /// - receive: set scheduler on receiving data
+            /// - receive: set scheduler on receiving data
                 .receive(on: DispatchQueue.main)
             
-                /// - sink: observe values
+            /// - sink: observe values
                 .sink(receiveCompletion: { completion in
                     if case let .failure(error) = completion {
-                        promise(.failure(error))
                         Log.e("""
                                         \(request.url!) | \(endpoint.rawValue)
                                         
                                         \(error)
                                         """)
+                        promise(.failure(error))
                     }
                     if shouldShowLoading {
                         DispatchQueue.main.async {
@@ -222,15 +223,16 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - DownloadTask - using with combine and response progress real time
-    public func download<I: Encodable, O: Decodable>( baseURL: String = APIKey.baseURL,
-                                               endpoint: APIKey? = nil,
-                                               rawURL: String? = nil,
-                                               contentType: ContentType = .FormData,
-                                               pathVariable: [String]? = nil,
-                                               urlParam: Dictionary<String, String>? = nil,
-                                               body    : I = "",
-                                               responseType: O.Type = Download.self,
-                                               httpMethod : HTTPMethod = .GET) -> AnyPublisher<UploadResponse, Error> {
+    public func download<I: Encodable, O: Decodable>(baseURL            : String                        = APIKey.baseURL,
+                                                     endpoint           : APIKey?                       = nil,
+                                                     rawURL             : String?                       = nil,
+                                                     contentType        : ContentType                   = .FormData,
+                                                     pathVariable       : [String]?                     = nil,
+                                                     urlParam           : Dictionary<String, String>?   = nil,
+                                                     body               : I                             = "",
+                                                     responseType       : O.Type                        = Download.self,
+                                                     httpMethod         : HTTPMethod                    = .GET)
+    -> AnyPublisher<UploadResponse, Error> {
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
@@ -257,19 +259,18 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - UploadTask - using with combine and response progress real time
-    public func upload<I: Encodable, O: Decodable> (
-        fileName: String,
-        paramName: String,
-        file: Data,
-        baseURL: String = APIKey.baseURL,
-        endpoint: APIKey,
-        contentType: ContentType = .FormData,
-        pathVariable: [String]? = nil,
-        urlParam: Dictionary<String, String>? = nil,
-        body    : I = "",
-        responseType: O.Type,
-        httpMethod : HTTPMethod = .POST
-    ) -> AnyPublisher<UploadResponse, Error> {
+    public func upload<I: Encodable, O: Decodable> (fileName        : String,
+                                                    paramName       : String,
+                                                    file            : Data,
+                                                    baseURL         : String                        = APIKey.baseURL,
+                                                    endpoint        : APIKey,
+                                                    contentType     : ContentType                   = .FormData,
+                                                    pathVariable    : [String]?                     = nil,
+                                                    urlParam        : Dictionary<String, String>?   = nil,
+                                                    body            : I                             = "",
+                                                    responseType    : O.Type,
+                                                    httpMethod      : HTTPMethod                    = .POST)
+    -> AnyPublisher<UploadResponse, Error> {
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
@@ -351,15 +352,16 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - GET REQUEST URL -
-    private func getURLRequest<T: Encodable>(baseURL: String,
-                                             endpoint: APIKey? = nil,
-                                             pathVariable: [String]?,
-                                             urlParam: Dictionary<String, String>?,
-                                             body: T,
-                                             httpMethod : HTTPMethod = .POST,
-                                             contentType: ContentType = .Json,
-                                             boundary: String? = nil,
-                                             rawURL: String? = nil) -> URLRequest {
+    private func getURLRequest<T: Encodable>(baseURL            : String,
+                                             endpoint           : APIKey?                           = nil,
+                                             pathVariable       : [String]?,
+                                             urlParam           : Dictionary<String, String>?,
+                                             body               : T,
+                                             httpMethod         : HTTPMethod                        = .POST,
+                                             contentType        : ContentType                       = .Json,
+                                             boundary           : String?                           = nil,
+                                             rawURL             : String?                           = nil)
+    -> URLRequest {
         
         func queryString<T:Encodable>(body:T) -> String {
             let request     = body
@@ -432,11 +434,10 @@ public class NetworkManager: NSObject {
     }
     
     //MARK: - GET REQUEST Data -
-    private func getDataRequest( fileName: String,
-                                 paramName: String,
-                                 file: Data,
-                                 boundary: String
-    ) -> Data {
+    private func getDataRequest(fileName    : String,
+                                paramName   : String,
+                                file        : Data,
+                                boundary    : String) -> Data {
         
         var data = Data()
         
@@ -457,10 +458,10 @@ public class NetworkManager: NSObject {
 extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
     
     public func urlSession(_ session: URLSession,
-                    downloadTask: URLSessionDownloadTask,
-                    didWriteData bytesWritten: Int64,
-                    totalBytesWritten: Int64,
-                    totalBytesExpectedToWrite: Int64) {
+                           downloadTask: URLSessionDownloadTask,
+                           didWriteData bytesWritten: Int64,
+                           totalBytesWritten: Int64,
+                           totalBytesExpectedToWrite: Int64) {
         let totalDownloaded = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
         
         /// - subject sending download progress
@@ -481,8 +482,8 @@ extension NetworkManager: URLSessionDownloadDelegate, URLSessionTaskDelegate {
     }
     
     public func urlSession(_ session: URLSession,
-                    downloadTask: URLSessionDownloadTask,
-                    didFinishDownloadingTo location: URL) {
+                           downloadTask: URLSessionDownloadTask,
+                           didFinishDownloadingTo location: URL) {
         
         //MARK: - Check Data, Response Error
         guard let data = try? Data(contentsOf: location) else {
