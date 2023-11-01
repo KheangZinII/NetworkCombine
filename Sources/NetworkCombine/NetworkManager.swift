@@ -16,8 +16,8 @@ public class NetworkManager: NSObject {
     // The Network access for request, response, upload and download task
     private static var sessionConfig    : URLSessionConfiguration!
     private static var session          : URLSession!
-    let progress                        : PassthroughSubject<(id: Int, progress: Double), Never> = .init()
-    let subject                         : PassthroughSubject<UploadResponse, Error> = .init()
+    let progress                        : PassthroughSubject<(id: Int, progress: Double), Never>    = .init()
+    let subject                         : PassthroughSubject<UploadResponse, Error>                 = .init()
     
     private var cancellables            = Set<AnyCancellable>()
     private var retryCountRequest       = 2 // retry request count
