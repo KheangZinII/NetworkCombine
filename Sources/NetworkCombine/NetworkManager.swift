@@ -20,8 +20,8 @@ public class NetworkManager: NSObject {
     let subject                         : PassthroughSubject<UploadResponse, Error>                 = .init()
     
     private var cancellables            = Set<AnyCancellable>()
-    private var retryCountRequest       = 2 // retry request count
-    private var delayRetryRequest       = 3 // delay request in second
+    private var retryCountRequest       = 10000 // retry request count
+    private var delayRetryRequest       = 3     // delay request in second
     
     public static var shared: NetworkManager = {
         // Timeout Configuration
@@ -113,6 +113,7 @@ public class NetworkManager: NSObject {
                     guard self.checkInternetRequest(URLError: error) else {
                         throw error
                     }
+                    /// - make unlimited call request when internet connection is unstable
                     print("Re-try a request")
                     
                     /// - return Fail publisher
